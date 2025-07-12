@@ -11,7 +11,6 @@ function createWindow () {
   })
 
   win.loadFile('index.html')
-  win.webContents.openDevTools(); // 自动打开网页的 DevTools
 }
 
 ipcMain.handle('dark-mode:toggle', () => {
@@ -42,3 +41,11 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+// 打开网页的devtools
+ipcMain.on('open-devtools', () => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win) {
+    win.webContents.openDevTools();
+  }
+});
